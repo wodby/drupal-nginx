@@ -13,35 +13,40 @@ ENV LUAJIT_INC /usr/include/luajit-2.0/
 RUN addgroup -S -g 101 nginx && \
     adduser -HS -u 100 -h /var/www/localhost/htdocs -s /sbin/nologin -G nginx nginx
 
-# Install needed packages
-RUN apk add --no-cache \
+# Install packages
+RUN apk add --update \
+
+        # Base packages
         openssl \
         ca-certificates \
-        libcrypto1.0 \
         pcre \
         zlib \
         luajit \
         geoip \
         tar \
+        libcrypto1.0 \
+        libssl1.0 \
+
+        # Temp packages
+        tar \
+        build-base \
+        autoconf \
+        libtool \
         openssl-dev \
         pcre-dev \
         zlib-dev \
         luajit-dev \
-        geoip-dev \
-        build-base \
-        autoconf \
-        libtool \
-        libssl1.0
+        geoip-dev && \
 
-# Download nginx and its modules source code
-RUN wget -qO- http://nginx.org/download/nginx-${NGX_VER}.tar.gz | tar xz -C /tmp/ && \
+    # Download nginx and its modules source code
+    wget -qO- http://nginx.org/download/nginx-${NGX_VER}.tar.gz | tar xz -C /tmp/ && \
     wget -qO- https://github.com/simpl/ngx_devel_kit/archive/v${NGX_NDK_VER}.tar.gz | tar xz -C /tmp/ && \
     wget -qO- https://github.com/masterzen/nginx-upload-progress-module/archive/v${NGX_UP_VER}.tar.gz | tar xz -C /tmp/ && \
     wget -qO- https://github.com/openresty/lua-nginx-module/archive/v${NGX_LUA_VER}.tar.gz | tar xz -C /tmp/ && \
-    wget -qO- https://github.com/nbs-system/naxsi/archive/${NGX_NXS_VER}.tar.gz | tar xz -C /tmp/
+    wget -qO- https://github.com/nbs-system/naxsi/archive/${NGX_NXS_VER}.tar.gz | tar xz -C /tmp/ && \
 
-# Make and install nginx with modules
-RUN cd /tmp/nginx-${NGX_VER} && \
+    # Make and install nginx with modules
+    cd /tmp/nginx-${NGX_VER} && \
     ./configure \
         --prefix=/usr/share/nginx \
         --sbin-path=/usr/sbin/nginx \
@@ -85,15 +90,10 @@ RUN cd /tmp/nginx-${NGX_VER} && \
         --add-module=/tmp/lua-nginx-module-${NGX_LUA_VER}/ \
         --add-module=/tmp/naxsi-${NGX_NXS_VER}/naxsi_src/ && \
     make -j2 && \
-    make install
+    make install && \
 
-# Cleanup
-RUN apk del --purge \
-        *-dev \
-        build-base \
-        autoconf \
-        libtool \
-        tar && \
+    # Cleanup
+    apk del --purge *-dev build-base autoconf libtool && \
     rm -rf /var/cache/apk/* /tmp/*
 
 # Create dirs
