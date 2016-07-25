@@ -9,9 +9,12 @@ ENV NGX_NXS_VER 0.54
 ENV LUAJIT_LIB /usr/lib/
 ENV LUAJIT_INC /usr/include/luajit-2.0/
 
-# Create user and group
-RUN addgroup -S -g 101 nginx && \
-    adduser -HS -u 100 -h /var/www/localhost/htdocs -s /sbin/nologin -G nginx nginx
+# Create user and groups
+# Based on http://git.alpinelinux.org/cgit/aports/tree/main/nginx-initscripts/nginx-initscripts.pre-install
+RUN addgroup -S -g 82 www-data && \
+    addgroup -S nginx && \
+    adduser -S -D -H -h /var/www/localhost/htdocs -s /sbin/nologin -G nginx -g nginx nginx && \
+    addgroup nginx www-data
 
 # Install packages
 RUN apk add --update \
