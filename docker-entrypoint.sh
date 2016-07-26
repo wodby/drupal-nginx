@@ -2,6 +2,8 @@
 
 set -eo pipefail
 
+sed -i 's/UPSTREAM_NAME/'"${NGINX_UPSTREAM_NAME}"'/' /etc/nginx/nginx.conf
+
 if [ -z "$DRUPAL_VERSION" ]; then
     DRUPAL_VERSION=8
 fi
