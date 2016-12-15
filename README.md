@@ -8,8 +8,8 @@ For example:
 	    image: wodby/drupal-nginx
 	    environment:
 	      NGINX_SERVER_NAME: localhost
-              NGINX_UPSTREAM_NAME: php
-              DRUPAL_VERSION: 7 # Allowed: 7, 8.
+          NGINX_UPSTREAM_NAME: php
+          DRUPAL_VERSION: 7 # Allowed: 7, 8.
 	      DEV_ENV: 1 # Disable gzip.
 	    volumes_from:
 	      - php
