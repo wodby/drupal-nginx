@@ -119,4 +119,3 @@ EXPOSE 80 443
 
 COPY docker-entrypoint.sh /usr/local/bin/
 CMD "docker-entrypoint.sh"
-CMD "crond"
