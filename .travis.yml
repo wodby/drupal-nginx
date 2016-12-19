@@ -1,0 +1,31 @@
+language: python
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - REPO=wodby/nginx-alpine
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+install:
+  - docker build -t $REPO:$COMMIT ./
+
+script:
+  - docker ps | grep -q "$REPO:$COMMIT"
+
+after_success: |
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
+    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    docker tag $REPO:$COMMIT $REPO:latest;
+
+    if [ -n "$TRAVIS_TAG" ]; then docker tag $REPO:$COMMIT $REPO:$TRAVIS_TAG; fi
+
+    docker rmi $REPO:$COMMIT
+    docker push $REPO
+  fi
+
+after_failure:
+  - docker logs nginx
