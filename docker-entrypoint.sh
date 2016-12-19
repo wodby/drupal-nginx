@@ -3,7 +3,9 @@
 set -eo pipefail
 
 # Set upstream name
-sed -i 's/UPSTREAM_NAME/'"${NGINX_UPSTREAM_NAME}"'/' /etc/nginx/nginx.conf
+if [ -n "$NGINX_UPSTREAM_NAME" ]; then
+    sed -i 's/UPSTREAM_NAME/'"${NGINX_UPSTREAM_NAME}"'/' /etc/nginx/nginx.conf
+fi
 
 # Ensure drupal version defined.
 if [ -z "$DRUPAL_VERSION" ]; then
@@ -26,6 +28,8 @@ if [ -z "$NGINX_SERVER_NAME" ]; then
 fi
 
 # Set server name
-sed -i 's/SERVER_NAME/'"${NGINX_SERVER_NAME}"'/' /etc/nginx/conf.d/*.conf
+if [ -n "$NGINX_SERVER_NAME" ]; then
+    sed -i 's/SERVER_NAME/'"${NGINX_SERVER_NAME}"'/' /etc/nginx/conf.d/*.conf
+fi
 
 exec nginx -g "daemon off;"

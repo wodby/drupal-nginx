@@ -14,7 +14,7 @@ install:
   - docker build -t $REPO:$COMMIT ./
 
 script:
-  - docker ps | grep -q "$REPO:$COMMIT"
+  - pwd
 
 after_success: |
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
