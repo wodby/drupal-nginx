@@ -7,14 +7,17 @@ services:
 
 env:
   global:
-    - REPO=wodby/nginx-alpine
+    - REPO=wodby/drupal-nginx
     - COMMIT=${TRAVIS_COMMIT::8}
 
 install:
   - docker build -t $REPO:$COMMIT ./
+  - docker run -d --name=php wodby/drupal-php:latest
+  - ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' php) && docker run -d --name=nginx -e "NGINX_SERVER_NAME=localhost" -e "NGINX_UPSTREAM_NAME=$ip" $REPO:$COMMIT
 
 script:
-  - pwd
+  - docker ps | grep -q "$REPO:$COMMIT"
+  - docker exec nginx nginx -v 2>&1 | grep -q "nginx/1.10.1"
 
 after_success: |
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
