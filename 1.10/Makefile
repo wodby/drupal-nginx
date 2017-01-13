@@ -12,7 +12,7 @@ build:
 	docker build -t $(NS)/$(REPO):$(VERSION) ./
 
 test:
-	echo 'Ok'
+	echo Ok
 
 push:
 	docker push $(NS)/$(REPO):$(VERSION)
