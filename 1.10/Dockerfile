@@ -17,6 +17,7 @@ RUN addgroup -S -g 82 www-data && \
     apk --update add \
         bash \
         wget \
+        pcre \
         ca-certificates \
         libressl-dev \
         pcre-dev \
