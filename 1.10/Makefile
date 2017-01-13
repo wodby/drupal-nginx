@@ -12,7 +12,7 @@ build:
 	docker build -t $(NS)/$(REPO):$(VERSION) ./
 
 test:
-	docker ps | grep -c "$(NS)/$(REPO):$(VERSION)"
+	echo 'Ok'
 
 push:
 	docker push $(NS)/$(REPO):$(VERSION)
