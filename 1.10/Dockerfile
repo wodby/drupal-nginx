@@ -52,6 +52,7 @@ RUN addgroup -S -g 82 www-data && \
       make -j2 && \
       make install && \
 
+    mkdir /etc/nginx/conf.d && \
     mkdir -p /var/lib/nginx/tmp && \
     chmod 755 /var/lib/nginx && \
     chmod -R 777 /var/lib/nginx/tmp && \
