@@ -102,7 +102,6 @@ COPY fastcgi_params /etc/nginx/fastcgi_params
 COPY drupal* /opt/
 
 WORKDIR /var/www/html
-VOLUME /var/www/html
 
 EXPOSE 80 443
 
