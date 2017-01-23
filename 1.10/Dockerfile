@@ -5,6 +5,9 @@ ENV NGX_VER 1.10.2
 ENV NGX_UP_VER 0.9.1
 ENV NGX_NDK_VER 0.3.0
 ENV NGX_NXS_VER 0.54
+ENV NGX_LUA_VER 0.10.7
+ENV LUAJIT_LIB /usr/lib/
+ENV LUAJIT_INC /usr/include/luajit-2.1/
 
     # Create user and groups
     # Based on http://git.alpinelinux.org/cgit/aports/tree/main/nginx-initscripts/nginx-initscripts.pre-install
@@ -19,39 +22,68 @@ RUN addgroup -S -g 82 www-data && \
         wget \
         pcre \
         ca-certificates \
-        libressl-dev \
-        pcre-dev \
-        zlib-dev \
-        geoip-dev \
         build-base \
         autoconf \
         libtool \
         geoip \
-        &&\
+        libressl-dev \
+        pcre-dev \
+        zlib-dev \
+        geoip-dev\
+        luajit \
+        luajit-dev && \
 
     # Download nginx and its modules source code
     wget -qO- http://nginx.org/download/nginx-${NGX_VER}.tar.gz | tar xz -C /tmp/ && \
     wget -qO- https://github.com/simpl/ngx_devel_kit/archive/v${NGX_NDK_VER}.tar.gz | tar xz -C /tmp/ && \
     wget -qO- https://github.com/masterzen/nginx-upload-progress-module/archive/v${NGX_UP_VER}.tar.gz | tar xz -C /tmp/ && \
     wget -qO- https://github.com/nbs-system/naxsi/archive/${NGX_NXS_VER}.tar.gz | tar xz -C /tmp/ && \
+    wget -qO- https://github.com/openresty/lua-nginx-module/archive/v${NGX_LUA_VER}.tar.gz | tar xz -C /tmp/ && \
 
     # Make and install nginx with module
     cd /tmp/nginx-${NGX_VER} && \
-    ./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf \
-      --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx/nginx.pid \
-      --lock-path=/var/run/nginx/nginx.lock --http-client-body-temp-path=/var/lib/nginx/tmp/client_body \
-      --http-proxy-temp-path=/var/lib/nginx/tmp/proxy --http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi \
-      --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi --http-scgi-temp-path=/var/lib/nginx/tmp/scgi \
-      --user=nginx --group=nginx --with-pcre-jit --with-http_ssl_module --with-http_realip_module \
-      --with-http_addition_module --with-http_sub_module --with-http_dav_module --with-http_flv_module \
-      --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module \
-      --with-http_secure_link_module --with-http_stub_status_module --with-http_auth_request_module --with-mail \
-      --with-mail_ssl_module --with-http_v2_module --with-ipv6 --with-threads --with-stream --with-stream_ssl_module \
-      --with-http_geoip_module --with-ld-opt="-Wl,-rpath,/usr/lib/" --add-module=/tmp/ngx_devel_kit-${NGX_NDK_VER}/ \
-      --add-module=/tmp/nginx-upload-progress-module-${NGX_UP_VER}/ \
-      --add-module=/tmp/naxsi-${NGX_NXS_VER}/naxsi_src/ && \
-      make -j2 && \
-      make install && \
+    ./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx \
+        --conf-path=/etc/nginx/nginx.conf \
+        --error-log-path=/var/log/nginx/error.log \
+        --http-log-path=/var/log/nginx/access.log \
+        --pid-path=/var/run/nginx/nginx.pid \
+        --lock-path=/var/run/nginx/nginx.lock \
+        --http-client-body-temp-path=/var/lib/nginx/tmp/client_body \
+        --http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
+        --http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi \
+        --http-uwsgi-temp-path=/var/lib/nginx/tmp/uwsgi \
+        --http-scgi-temp-path=/var/lib/nginx/tmp/scgi \
+        --user=nginx \
+        --group=nginx \
+        --with-pcre-jit \
+        --with-http_ssl_module \
+        --with-http_realip_module \
+        --with-http_addition_module \
+        --with-http_sub_module \
+        --with-http_dav_module \
+        --with-http_flv_module \
+        --with-http_mp4_module \
+        --with-http_gunzip_module \
+        --with-http_gzip_static_module \
+        --with-http_random_index_module \
+        --with-http_secure_link_module \
+        --with-http_stub_status_module \
+        --with-http_auth_request_module \
+        --with-mail \
+        --with-mail_ssl_module \
+        --with-http_v2_module \
+        --with-ipv6 \
+        --with-threads \
+        --with-stream \
+        --with-stream_ssl_module \
+        --with-http_geoip_module \
+        --with-ld-opt="-Wl,-rpath,/usr/lib/" \
+        --add-module=/tmp/ngx_devel_kit-${NGX_NDK_VER}/ \
+        --add-module=/tmp/nginx-upload-progress-module-${NGX_UP_VER}/ \
+        --add-module=/tmp/naxsi-${NGX_NXS_VER}/naxsi_src/ \
+        --add-module=/tmp/lua-nginx-module-${NGX_LUA_VER}/ && \
+    make -j2 && \
+    make install && \
 
     mkdir /etc/nginx/conf.d && \
     mkdir -p /var/lib/nginx/tmp && \
@@ -70,7 +102,6 @@ COPY fastcgi_params /etc/nginx/fastcgi_params
 COPY drupal* /opt/
 
 WORKDIR /var/www/html
-VOLUME /var/www/html
 
 EXPOSE 80 443
 
