@@ -7,28 +7,31 @@ services:
 
 env:
   global:
-    - REPO=wodby/drupal-nginx
-    - COMMIT=${TRAVIS_COMMIT::8}
+    - LATEST_VERSION=8
+  matrix:
+    - DRUPAL=6 NGINX=1.10
+    - DRUPAL=7 NGINX=1.10
+    - DRUPAL=8 NGINX=1.10
 
 install:
-  - docker build -t $REPO:$COMMIT ./
-  - docker run -d --name=php wodby/drupal-php:latest
-  - ip=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' php) && docker run -d --name=nginx -e "NGINX_SERVER_NAME=localhost" -e "NGINX_UPSTREAM_NAME=$ip" $REPO:$COMMIT
+  - cd ./$DRUPAL/$NGINX
+  - make
 
-script:
-  - docker ps | grep -q "$REPO:$COMMIT"
-  - docker exec nginx nginx -v 2>&1 | grep -q "nginx/1.10.1"
+script: make test
 
 after_success: |
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    docker tag $REPO:$COMMIT $REPO:latest;
+    make release
 
-    if [ -n "$TRAVIS_TAG" ]; then docker tag $REPO:$COMMIT $REPO:$TRAVIS_TAG; fi
+    if [ -n "$TRAVIS_TAG" ]; then
+      make VERSION="$TRAVIS_TAG" release
+    fi
 
-    docker rmi $REPO:$COMMIT
-    docker push $REPO
+    if [ "$VERSION" == "$LATEST_VERSION" ]; then
+      make VERSION=latest release
+    fi
   fi
 
 after_failure:
-  - docker logs nginx
+  - make logs

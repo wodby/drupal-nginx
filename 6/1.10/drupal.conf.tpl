@@ -1,8 +1,8 @@
 server {
-    server_name SERVER_NAME;
+    server_name {{ getenv "NGINX_SERVER_NAME" "drupal" }};
     listen 80;
 
-    root /var/www/html/;
+    root {{ getenv "NGINX_SERVER_ROOT" "/var/www/html/" }};
     index index.php;
 
     fastcgi_keep_conn on;
@@ -10,17 +10,16 @@ server {
     fastcgi_param QUERY_STRING $query_string;
     fastcgi_param SCRIPT_NAME $fastcgi_script_name;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_hide_header 'X-Drupal-Cache';
+    fastcgi_hide_header 'X-Generator';
 
     location / {
 
         location ^~ /system/files/ {
-            include fastcgi_params;
             fastcgi_param QUERY_STRING q=$uri&$args;
             fastcgi_param SCRIPT_NAME /index.php;
             fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-            fastcgi_hide_header 'X-Drupal-Cache';
-            fastcgi_hide_header 'X-Generator';
-            fastcgi_pass upstream;
+            fastcgi_pass backend;
             log_not_found off;
         }
 
@@ -48,7 +47,7 @@ server {
             open_file_cache_min_uses 2;
             open_file_cache_errors off;
         }
-    
+
         location ^~ /sites/.*/files/advagg_css/ {
             expires max;
             add_header ETag '';
@@ -79,17 +78,10 @@ server {
             access_log off;
             expires 30d;
             tcp_nodelay off;
-            open_file_cache max=3000 inactive=120s;
+            open_file_cache {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE" "max=3000 inactive=120s" }};
             open_file_cache_valid 45s;
             open_file_cache_min_uses 2;
             open_file_cache_errors off;
-        }
-
-        location ~* ^.+\.(?:css|js)$ {
-            access_log off;
-            expires 30d;
-            tcp_nodelay off;
-            open_file_cache off;
         }
 
         location ~* ^.+\.(?:pdf|pptx?)$ {
@@ -104,74 +96,38 @@ server {
     }
 
     location @drupal {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING q=$uri&$args;
+        fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
+        fastcgi_pass backend;
         track_uploads uploads 60s;
     }
 
     location @drupal-no-args {
-        include fastcgi_params;
         fastcgi_param QUERY_STRING q=$uri;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
-    }
-
-    location = /index.php {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING q=$uri&$args;
-        fastcgi_param SCRIPT_NAME /index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
+        fastcgi_pass backend;
     }
 
     location = /cron.php {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING $args;
-        fastcgi_param SCRIPT_NAME /cron.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/cron.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
+        fastcgi_pass backend;
     }
 
-    location = /update.php {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING $args;
-        fastcgi_param SCRIPT_NAME /update.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/update.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
+    location ~* ^/update.php {
+        fastcgi_pass backend;
     }
 
     location = /install.php {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING $args;
-        fastcgi_param SCRIPT_NAME /install.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/install.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
+        fastcgi_pass backend;
     }
 
     location = /authorize.php {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING $args;
-        fastcgi_param SCRIPT_NAME /authorize.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/authorize.php;
-        fastcgi_hide_header 'X-Drupal-Cache';
-        fastcgi_hide_header 'X-Generator';
-        fastcgi_pass upstream;
+        fastcgi_pass backend;
+    }
+
+    location = /xmlrpc.php {
+        fastcgi_pass www;
     }
 
     location ^~ /.bzr {
