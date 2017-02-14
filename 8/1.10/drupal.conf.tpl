@@ -96,6 +96,7 @@ server {
     }
 
     location @drupal {
+        include fastcgi_params;
         fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
@@ -104,6 +105,7 @@ server {
     }
 
     location @drupal-no-args {
+        include fastcgi_params;
         fastcgi_param QUERY_STRING q=$uri;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;

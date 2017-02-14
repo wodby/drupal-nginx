@@ -13,8 +13,6 @@ stopDockerCompose() {
 waitForNginx() {
     done=''
 
-    curl -I "${1}:${2}"
-
     for i in {30..0}; do
         if curl -s "${1}:${2}" &> /dev/null ; then
             done=1
