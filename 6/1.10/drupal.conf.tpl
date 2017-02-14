@@ -96,6 +96,7 @@ server {
     }
 
     location @drupal {
+        include fastcgi_params;
         fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
@@ -107,6 +108,10 @@ server {
         fastcgi_param QUERY_STRING q=$uri;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_pass backend;
+    }
+
+    location = /index.php {
         fastcgi_pass backend;
     }
 
@@ -127,7 +132,7 @@ server {
     }
 
     location = /xmlrpc.php {
-        fastcgi_pass www;
+        fastcgi_pass backend;
     }
 
     location ^~ /.bzr {

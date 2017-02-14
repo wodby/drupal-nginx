@@ -6,3 +6,5 @@ COPY drupal.conf.tpl /etc/gotpl/
 COPY docker-entrypoint-drupal.sh /
 
 ENTRYPOINT ["/docker-entrypoint-drupal.sh"]
+
+CMD ["nginx"]

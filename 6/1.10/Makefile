@@ -1,6 +1,6 @@
 -include env_make
 
-VERSION ?= latest
+VERSION ?= 6-1.10
 
 REPO = wodby/drupal-nginx
 NAME = drupal6-nginx-1.10
@@ -11,7 +11,7 @@ build:
 	docker build -t $(REPO):$(VERSION) ./
 
 test:
-	./test.sh
+	IMAGE=$(REPO):$(VERSION) ./test.sh
 
 push:
 	docker push $(REPO):$(VERSION)

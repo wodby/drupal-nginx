@@ -110,6 +110,10 @@ server {
         fastcgi_pass backend;
     }
 
+    location = /index.php {
+        fastcgi_pass backend;
+    }
+
     location = /cron {
         fastcgi_param QUERY_STRING $args;
         fastcgi_param SCRIPT_NAME /index.php;

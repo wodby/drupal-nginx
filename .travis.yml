@@ -7,11 +7,18 @@ services:
 
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.10.0
     - LATEST_VERSION=8
   matrix:
     - DRUPAL=6 NGINX=1.10
     - DRUPAL=7 NGINX=1.10
     - DRUPAL=8 NGINX=1.10
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 install:
   - cd ./$DRUPAL/$NGINX
@@ -25,10 +32,10 @@ after_success: |
     make release
 
     if [ -n "$TRAVIS_TAG" ]; then
-      make VERSION="$TRAVIS_TAG" release
+      make VERSION="$DRUPAL-$NGINX-$TRAVIS_TAG" release
     fi
 
-    if [ "$VERSION" == "$LATEST_VERSION" ]; then
+    if [ "$DRUPAL" == "$LATEST_VERSION" ]; then
       make VERSION=latest release
     fi
   fi

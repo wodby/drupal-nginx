@@ -110,6 +110,10 @@ server {
         fastcgi_pass backend;
     }
 
+    location = /index.php {
+        fastcgi_pass backend;
+    }
+
     location = /cron.php {
         fastcgi_pass backend;
     }

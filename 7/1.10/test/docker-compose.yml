@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  nginx:
+    image: $IMAGE
+    ports:
+      - 8080:80
+    environment:
+      NGINX_BACKEND_HOST: php
+      NGINX_BACKEND_PORT: 9000
+    depends_on:
+      - php
+  php:
+    image: php:fpm-alpine
+    volumes:
+      - ./index.php:/var/www/html/index.php
