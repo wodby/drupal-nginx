@@ -5,7 +5,7 @@ VERSION ?= 7-1.10
 REPO = wodby/drupal-nginx
 NAME = drupal7-nginx-1.10
 
-.PHONY: build test push shell run start stop logs rm release
+.PHONY: build test push shell run start stop logs clean release
 
 build:
 	docker build -t $(REPO):$(VERSION) ./
@@ -31,8 +31,8 @@ stop:
 logs:
 	docker logs $(NAME)
 
-rm:
-	docker rm $(NAME)
+clean:
+	-docker rm -f $(NAME)
 
 release: build
 	make push -e VERSION=$(VERSION)

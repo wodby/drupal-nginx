@@ -14,17 +14,15 @@ env:
     - DRUPAL=7 NGINX=1.10
     - DRUPAL=8 NGINX=1.10
 
-before_install:
+install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-install:
+script:
   - cd ./$DRUPAL/$NGINX
-  - make
-
-script: make test
+  - make && make test
 
 after_success: |
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
