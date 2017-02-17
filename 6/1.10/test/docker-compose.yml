@@ -6,11 +6,13 @@ services:
     ports:
       - 8080:80
     environment:
-      NGINX_BACKEND_HOST: php
+      NGINX_BACKEND_HOST: drupal
       NGINX_BACKEND_PORT: 9000
     depends_on:
-      - php
-  php:
-    image: php:fpm-alpine
+      - drupal
+    volumes_from:
+      - drupal:ro
+  drupal:
+    image: wodby/drupal6
     volumes:
-      - ./index.php:/var/www/html/index.php
+      - /var/www/html

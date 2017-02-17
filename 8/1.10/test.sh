@@ -2,6 +2,8 @@
 
 set -ex
 
+url=localhost:8080
+
 startDockerCompose() {
     docker-compose -f test/docker-compose.yml up -d
 }
@@ -14,7 +16,7 @@ waitForNginx() {
     done=''
 
     for i in {30..0}; do
-        if curl -s "${1}:${2}" &> /dev/null ; then
+        if curl -s $url &> /dev/null ; then
             done=1
             break
         fi
@@ -29,16 +31,24 @@ waitForNginx() {
 }
 
 checkNginxResponse() {
-    curl -s "${1}:${2}" | grep -c 'Hello World!'
+    curl -s -I "$url" | grep '302 Found'
+    curl -s -I "$url/core/authorize.php" | grep '500 Service unavailable'
+    curl -s -I "$url/core/install.php" | grep '200 OK'
+    curl -s -I "$url/cron" | grep '200 OK'
+    curl -s -I "$url/index.php" | grep '302 Found'
+    curl -s -I "$url/update.php" | grep '500 Service unavailable'
+    curl -s -I "$url/non-existing.php" | grep '404 Not Found'
+    curl -s -I "$url/.htaccess" | grep '404 Not Found'
+    curl -s -I "$url/favicon.ico" | grep '200 OK'
+    curl -s -I "$url/robots.txt" | grep '200 OK'
+    curl -s -I "$url/core/misc/drupal.js" | grep '200 OK'
+    curl -s -I "$url/core/misc/druplicon.png" | grep '200 OK'
 }
 
 runTests() {
-    host=localhost
-    port=8080
-
     startDockerCompose
-    waitForNginx "${host}" "${port}"
-    checkNginxResponse "${host}" "${port}"
+    waitForNginx
+    checkNginxResponse
     stopDockerCompose
 }
 
