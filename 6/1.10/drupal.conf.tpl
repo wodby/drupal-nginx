@@ -5,6 +5,7 @@ server {
     root {{ getenv "NGINX_SERVER_ROOT" "/var/www/html/" }};
     index index.php;
 
+    include fastcgi_params;
     fastcgi_keep_conn on;
     fastcgi_index index.php;
     fastcgi_param QUERY_STRING $query_string;

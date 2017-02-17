@@ -5,6 +5,7 @@ server {
     root {{ getenv "NGINX_SERVER_ROOT" "/var/www/html/" }};
     index index.php;
 
+    include fastcgi_params;
     fastcgi_keep_conn on;
     fastcgi_index index.php;
     fastcgi_param QUERY_STRING $query_string;
@@ -97,7 +98,6 @@ server {
 
     location @drupal {
         include fastcgi_params;
-        fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
         fastcgi_pass backend;
@@ -112,7 +112,7 @@ server {
         fastcgi_pass backend;
     }
 
-    location = /index.php {
+    location ~* ^/authorize.php {
         fastcgi_pass backend;
     }
 
@@ -120,7 +120,7 @@ server {
         fastcgi_pass backend;
     }
 
-    location ~* ^/update.php {
+    location = /index.php {
         fastcgi_pass backend;
     }
 
@@ -128,7 +128,11 @@ server {
         fastcgi_pass backend;
     }
 
-    location = /authorize.php {
+    location ~* ^/update.php {
+        fastcgi_pass backend;
+    }
+
+    location = /xmlrpc.php {
         fastcgi_pass backend;
     }
 
