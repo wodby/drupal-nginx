@@ -29,23 +29,24 @@ server {
         }
 
         location ~* /imagecache/ {
-            access_log off;
-            expires 30d;
+            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
+            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             try_files $uri @drupal;
         }
 
         location ~* /files/styles/ {
-            access_log off;
-            expires 30d;
+            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
+            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             try_files $uri @drupal;
         }
 
         location ~* ^/sites/.*/files/.*\.txt {
-            expires 30d;
+            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
+            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             tcp_nodelay off;
-            open_file_cache max=3000 inactive=120s;
-            open_file_cache_valid 45s;
-            open_file_cache_min_uses 2;
+            open_file_cache {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE" "max=3000 inactive=120s" }};
+            open_file_cache_valid {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_VALID" "45s" }};
+            open_file_cache_min_uses {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_MIN_USES" "2" }};
             open_file_cache_errors off;
         }
 
@@ -55,7 +56,7 @@ server {
             add_header Last-Modified 'Wed, 20 Jan 1988 04:20:42 GMT';
             add_header Accept-Ranges '';
             location ~* /sites/.*/files/advagg_css/css[_[:alnum:]]+\.css$ {
-                access_log off;
+                access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
                 try_files $uri @drupal;
             }
         }
@@ -66,7 +67,7 @@ server {
             add_header Last-Modified 'Wed, 20 Jan 1988 04:20:42 GMT';
             add_header Accept-Ranges '';
             location ~* /sites/.*/files/advagg_js/js[_[:alnum:]]+\.js$ {
-                access_log off;
+                access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
                 try_files $uri @drupal;
             }
         }
@@ -76,17 +77,17 @@ server {
         }
 
         location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|xml|otf|ttf|eot|woff|woff2|svg)$ {
-            access_log off;
-            expires 30d;
+            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
+            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             tcp_nodelay off;
             open_file_cache {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE" "max=3000 inactive=120s" }};
-            open_file_cache_valid 45s;
-            open_file_cache_min_uses 2;
+            open_file_cache_valid {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_VALID" "45s" }};
+            open_file_cache_min_uses {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_MIN_USES" "2" }};
             open_file_cache_errors off;
         }
 
         location ~* ^.+\.(?:pdf|pptx?)$ {
-            expires 30d;
+            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             tcp_nodelay off;
         }
 
@@ -98,10 +99,11 @@ server {
 
     location @drupal {
         include fastcgi_params;
+        fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
         fastcgi_pass backend;
-        track_uploads uploads 60s;
+        track_uploads {{ getenv "NGINX_DRUPAL_TRACK_UPLOADS" "uploads 60s" }};
     }
 
     location @drupal-no-args {
@@ -165,7 +167,7 @@ server {
     }
 
     location = /robots.txt {
-        access_log off;
+        access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
         try_files $uri @drupal-no-args;
     }
 
@@ -178,7 +180,7 @@ server {
     }
 
     location = /favicon.ico {
-        expires 30d;
+        expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
         try_files /favicon.ico @empty;
     }
 
@@ -187,7 +189,7 @@ server {
     }
 
     location @empty {
-        expires 30d;
+        expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
         empty_gif;
     }
 
