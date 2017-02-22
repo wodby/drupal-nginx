@@ -50,7 +50,7 @@ server {
             open_file_cache_errors off;
         }
 
-        location ^~ /sites/.*/files/advagg_css/ {
+        location ^* /sites/.*/files/advagg_css/ {
             expires max;
             add_header ETag '';
             add_header Last-Modified 'Wed, 20 Jan 1988 04:20:42 GMT';
@@ -61,7 +61,7 @@ server {
             }
         }
 
-        location ^~ /sites/.*/files/advagg_js/ {
+        location ^* /sites/.*/files/advagg_js/ {
             expires max;
             add_header ETag '';
             add_header Last-Modified 'Wed, 20 Jan 1988 04:20:42 GMT';
