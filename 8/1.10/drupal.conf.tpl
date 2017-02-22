@@ -76,7 +76,7 @@ server {
             try_files $uri @drupal;
         }
 
-        location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|xml|otf|ttf|eot|woff|woff2|svg)$ {
+        location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|xml|otf|ttf|eot|woff|woff2|svg|svgz)$ {
             access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
             expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             tcp_nodelay off;
@@ -84,6 +84,11 @@ server {
             open_file_cache_valid {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_VALID" "45s" }};
             open_file_cache_min_uses {{ getenv "NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_MIN_USES" "2" }};
             open_file_cache_errors off;
+
+            location ~* ^.+\.svgz$ {
+                gzip off;
+                add_header Content-Encoding gzip;
+            }
         }
 
         location ~* ^.+\.(?:pdf|pptx?)$ {
