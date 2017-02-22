@@ -34,6 +34,7 @@ checkNginxResponse() {
     curl -s -I "$url" | grep '302 Found'
     curl -s -I "$url/core/authorize.php" | grep '500 Service unavailable'
     curl -s -I "$url/core/install.php" | grep '200 OK'
+    curl -s -I "$url/core/modules/statistics/statistics.php" | grep '500 Service unavailable'
     curl -s -I "$url/cron" | grep '200 OK'
     curl -s -I "$url/index.php" | grep '302 Found'
     curl -s -I "$url/update.php" | grep '500 Service unavailable'
