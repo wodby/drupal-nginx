@@ -8,9 +8,9 @@ See [Docker4Drupal](http://docker4drupal.org)
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`6-1.10`, (*6/1.10/Dockerfile*)](https://github.com/wodby/drupal-php/tree/master/6/1.10/Dockerfile)
-- [`7-1.10`, (*7/1.10/Dockerfile*)](https://github.com/wodby/drupal-php/tree/master/7/1.10/Dockerfile)
-- [`8-1.10`, `latest` (*8/1.10/Dockerfile*)](https://github.com/wodby/drupal-php/tree/master/8/1.10/Dockerfile)
+- [`6-1.10`, (*6/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.10/Dockerfile)
+- [`7-1.10`, (*7/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.10/Dockerfile)
+- [`8-1.10`, `latest` (*8/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.10/Dockerfile)
 
 ## Environment Variables Available for Customization
 
