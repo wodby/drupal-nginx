@@ -1,4 +1,4 @@
-FROM wodby/nginx:1.10
+FROM wodby/nginx:1.10-2.0.0
 
 RUN rm /etc/gotpl/default-vhost.conf.tpl
 
