@@ -10,7 +10,7 @@ services:
     depends_on:
       - drupal
     volumes:
-      - codebase:/var/www/html:ro
+      - codebase:/var/www/html
   drupal:
     image: drupal:8-fpm
     volumes:
