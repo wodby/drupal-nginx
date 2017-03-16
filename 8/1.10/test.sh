@@ -1,56 +1,31 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
-url=localhost:8080
+if [[ -n "${DEBUG}" ]]; then
+  set -x
+fi
 
-startDockerCompose() {
-    docker-compose -f test/docker-compose.yml up -d
+nginxExec() {
+    docker-compose -f test/docker-compose.yml exec --user=82 nginx "${@}"
 }
 
-stopDockerCompose() {
-    docker-compose -f test/docker-compose.yml down
-}
+docker-compose -f test/docker-compose.yml up -d
 
-waitForNginx() {
-    done=''
+nginxExec make check-ready -f /usr/local/bin/actions.mk
 
-    for i in {30..0}; do
-        if curl -s $url &> /dev/null ; then
-            done=1
-            break
-        fi
-        echo 'Nginx start process in progress...'
-        sleep 1
-    done
+nginxExec curl -s -I "localhost" | grep '302 Found'
+nginxExec curl -s -I "localhost/core/authorize.php" | grep '500 Service unavailable'
+nginxExec curl -s -I "localhost/core/install.php" | grep '200 OK'
+nginxExec curl -s -I "localhost/core/modules/statistics/statistics.php" | grep '500 Service unavailable'
+nginxExec curl -s -I "localhost/cron" | grep '200 OK'
+nginxExec curl -s -I "localhost/index.php" | grep '302 Found'
+nginxExec curl -s -I "localhost/update.php" | grep '500 Service unavailable'
+nginxExec curl -s -I "localhost/non-existing.php" | grep '404 Not Found'
+nginxExec curl -s -I "localhost/.htaccess" | grep '404 Not Found'
+nginxExec curl -s -I "localhost/favicon.ico" | grep '200 OK'
+nginxExec curl -s -I "localhost/robots.txt" | grep '200 OK'
+nginxExec curl -s -I "localhost/core/misc/drupal.js" | grep '200 OK'
+nginxExec curl -s -I "localhost/core/misc/druplicon.png" | grep '200 OK'
 
-    if [[ ! "${done}" ]]; then
-        echo "Failed to start Nginx" >&2
-        exit 1
-    fi
-}
-
-checkNginxResponse() {
-    curl -s -I "$url" | grep '302 Found'
-    curl -s -I "$url/core/authorize.php" | grep '500 Service unavailable'
-    curl -s -I "$url/core/install.php" | grep '200 OK'
-    curl -s -I "$url/core/modules/statistics/statistics.php" | grep '500 Service unavailable'
-    curl -s -I "$url/cron" | grep '200 OK'
-    curl -s -I "$url/index.php" | grep '302 Found'
-    curl -s -I "$url/update.php" | grep '500 Service unavailable'
-    curl -s -I "$url/non-existing.php" | grep '404 Not Found'
-    curl -s -I "$url/.htaccess" | grep '404 Not Found'
-    curl -s -I "$url/favicon.ico" | grep '200 OK'
-    curl -s -I "$url/robots.txt" | grep '200 OK'
-    curl -s -I "$url/core/misc/drupal.js" | grep '200 OK'
-    curl -s -I "$url/core/misc/druplicon.png" | grep '200 OK'
-}
-
-runTests() {
-    startDockerCompose
-    waitForNginx
-    checkNginxResponse
-    stopDockerCompose
-}
-
-runTests
+docker-compose -f test/docker-compose.yml down

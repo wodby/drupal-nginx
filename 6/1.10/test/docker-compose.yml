@@ -3,8 +3,6 @@ version: "2"
 services:
   nginx:
     image: $IMAGE
-    ports:
-      - 8080:80
     environment:
       NGINX_BACKEND_HOST: drupal
     depends_on:
@@ -12,7 +10,7 @@ services:
     volumes:
       - codebase:/var/www/html
   drupal:
-    image: drupal:8-fpm
+    image: wodby/drupal6
     volumes:
       - codebase:/var/www/html
 
