@@ -183,7 +183,7 @@ server {
         try_files $uri @drupal-no-args;
     }
 
-    location = /sitemap.xml {
+    location ~* /sitemap.xml {
         try_files $uri @drupal-no-args;
     }
 
