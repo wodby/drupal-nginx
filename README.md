@@ -28,6 +28,7 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 | NGINX_STATIC_CONTENT_OPEN_FILE_CACHE_MIN_USES | Int    | 2                          | |
 | NGINX_DRUPAL_TRACK_UPLOADS                    | String | NGINX_DRUPAL_TRACK_UPLOADS | |
 | NGINX_STATIC_CONTENT_ACCESS_LOG               | String | off                        | |
+| NGINX_SERVER_EXTRA_CONF_FILEPATH              | String |                            | |
 
 ## Using in Production
 

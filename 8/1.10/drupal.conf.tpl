@@ -213,4 +213,8 @@ server {
         upload_progress_json_output;
         report_uploads uploads;
     }
+
+{{ if getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }}
+    include {{ getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }};
+{{ end }}
 }
