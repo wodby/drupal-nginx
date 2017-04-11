@@ -8,7 +8,7 @@ server {
     include fastcgi_params;
     fastcgi_keep_conn on;
     fastcgi_index index.php;
-    fastcgi_param QUERY_STRING $query_string;
+    fastcgi_param QUERY_STRING q=$no_slash_uri&$args;
     fastcgi_param SCRIPT_NAME $fastcgi_script_name;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_hide_header 'X-Drupal-Cache';
@@ -104,7 +104,7 @@ server {
 
     location @drupal {
         include fastcgi_params;
-        fastcgi_param QUERY_STRING $query_string;
+        fastcgi_param QUERY_STRING q=$no_slash_uri&$args;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
         fastcgi_pass backend;
@@ -113,7 +113,7 @@ server {
 
     location @drupal-no-args {
         include fastcgi_params;
-        fastcgi_param QUERY_STRING q=$uri;
+        fastcgi_param QUERY_STRING q=$no_slash_uri;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
         fastcgi_pass backend;
