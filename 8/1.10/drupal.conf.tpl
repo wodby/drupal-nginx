@@ -28,12 +28,6 @@ server {
             internal;
         }
 
-        location ~* /imagecache/ {
-            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
-            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
-            try_files $uri @drupal;
-        }
-
         location ~* /files/styles/ {
             access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
             expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
