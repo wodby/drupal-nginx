@@ -16,6 +16,7 @@ server {
 
     location / {
         location ~* /system/files/ {
+            include fastcgi_params;
             fastcgi_param QUERY_STRING q=$uri&$args;
             fastcgi_param SCRIPT_NAME /index.php;
             fastcgi_param SCRIPT_FILENAME $document_root/index.php;
