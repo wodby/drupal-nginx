@@ -15,7 +15,6 @@ server {
     fastcgi_hide_header 'X-Generator';
 
     location / {
-
         location ~* /system/files/ {
             fastcgi_param QUERY_STRING q=$uri&$args;
             fastcgi_param SCRIPT_NAME /index.php;
@@ -26,12 +25,6 @@ server {
 
         location ~* /sites/.*/files/private/ {
             internal;
-        }
-
-        location ~* /imagecache/ {
-            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
-            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
-            try_files $uri @drupal;
         }
 
         location ~* /files/styles/ {
