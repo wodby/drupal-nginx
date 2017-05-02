@@ -134,6 +134,10 @@ server {
     }
 
     location = /xmlrpc.php {
+        {{ if getenv "NGINX_XMLRPC_SERVER_NAME" "" }}
+        include fastcgi_params;
+        fastcgi_param  SERVER_NAME {{ getenv "NGINX_XMLRPC_SERVER_NAME" }};
+        {{ end }}
         fastcgi_pass backend;
     }
 

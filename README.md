@@ -29,6 +29,7 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 | NGINX_DRUPAL_TRACK_UPLOADS                    | String | NGINX_DRUPAL_TRACK_UPLOADS | |
 | NGINX_STATIC_CONTENT_ACCESS_LOG               | String | off                        | |
 | NGINX_SERVER_EXTRA_CONF_FILEPATH              | String |                            | |
+| NGINX_XMLRPC_SERVER_NAME                      | String |                            | |
 
 ## Using in Production
 
