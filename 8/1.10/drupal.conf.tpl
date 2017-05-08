@@ -122,6 +122,10 @@ server {
     }
 
     location ~* ^/core/authorize.php {
+        include fastcgi_params;
+        fastcgi_param QUERY_STRING $args;
+        fastcgi_param SCRIPT_NAME /core/authorize.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/core/authorize.php;
         fastcgi_pass backend;
     }
 
