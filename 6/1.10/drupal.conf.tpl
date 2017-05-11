@@ -120,6 +120,10 @@ server {
     }
 
     location ~* ^/authorize.php {
+        include fastcgi_params;
+        fastcgi_param QUERY_STRING $args;
+        fastcgi_param SCRIPT_NAME /authorize.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/authorize.php;
         fastcgi_pass backend;
     }
 
@@ -184,8 +188,8 @@ server {
         try_files $uri @drupal-no-args;
     }
 
-    location = /sitemap.xml {
-        try_files $uri @drupal-no-args;
+    location ~* /sitemap.xml {
+        try_files $uri @drupal;
     }
 
     location = /favicon.ico {

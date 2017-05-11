@@ -182,7 +182,7 @@ server {
     }
 
     location ~* /sitemap.xml {
-        try_files $uri @drupal-no-args;
+        try_files $uri @drupal;
     }
 
     location = /favicon.ico {
