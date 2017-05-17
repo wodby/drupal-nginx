@@ -8,11 +8,19 @@ services:
 env:
   global:
     - DOCKER_COMPOSE_VERSION=1.10.0
-    - LATEST_VERSION=8
+    - LATEST_DRUPAL_VERSION=8
+    - LATEST_NGINX_VERSION=1.13
+    - STABLE_NGINX_VERSION=1.12
   matrix:
     - DRUPAL=6 NGINX=1.10
+    - DRUPAL=6 NGINX=1.12
+    - DRUPAL=6 NGINX=1.13
     - DRUPAL=7 NGINX=1.10
+    - DRUPAL=7 NGINX=1.12
+    - DRUPAL=7 NGINX=1.13
     - DRUPAL=8 NGINX=1.10
+    - DRUPAL=8 NGINX=1.12
+    - DRUPAL=8 NGINX=1.13
 
 install:
   - sudo rm /usr/local/bin/docker-compose
@@ -33,8 +41,12 @@ after_success: |
       make VERSION="$DRUPAL-$NGINX-$TRAVIS_TAG" release
     fi
 
-    if [ "$DRUPAL" == "$LATEST_VERSION" ]; then
-      make VERSION=latest release
+    if [ "$DRUPAL" == "$LATEST_DRUPAL_VERSION" ]; then
+      if [ "$NGINX" == "$LATEST_NGINX_VERSION" ]; then
+        make VERSION=latest release
+      elif [ "$NGINX" == "$STABLE_NGINX_VERSION" ]; then
+        make VERSION=stable release
+      fi
     fi
   fi
 
