@@ -1,4 +1,4 @@
-# Nginx docker container for Drupal
+# Nginx docker container image for Drupal
 
 [![Build Status](https://travis-ci.org/wodby/drupal-nginx.svg?branch=master)](https://travis-ci.org/wodby/drupal-nginx)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wodby/drupal-nginx.svg)](https://hub.docker.com/r/wodby/drupal-nginx)
@@ -8,11 +8,11 @@ To get full docker-based local environment for Drupal see [Docker4Drupal](http:/
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`6-1.10-2.0.0`, `6-1.10`, (*6/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.10/Dockerfile)
-- [`7-1.10-2.0.0`, `7-1.10`, (*7/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.10/Dockerfile)
-- [`8-1.10-2.0.0`, `8-1.10`, `latest` (*8/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.10/Dockerfile)
+- [`6-1.10-2.2.0`, `6-1.10`, (*6/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.10/Dockerfile)
+- [`7-1.10-2.2.0`, `7-1.10`, (*7/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.10/Dockerfile)
+- [`8-1.10-2.2.0`, `8-1.10`, `latest` (*8/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.10/Dockerfile)
 
-## Environment Variables Available for Customization
+## Environment variables available for customization
 
 See at [wodby/nginx](https://github.com/wodby/nginx)
 
@@ -29,6 +29,6 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 | NGINX_SERVER_EXTRA_CONF_FILEPATH              | String |                            | |
 | NGINX_XMLRPC_SERVER_NAME                      | String |                            | |
 
-## Using in Production
+## Using in production
 
 Deploy docker-based infrastructure for Drupal to your own server via [![Wodby](https://www.google.com/s2/favicons?domain=wodby.com) Wodby](https://wodby.com).
