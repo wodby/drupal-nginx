@@ -184,6 +184,11 @@ server {
         try_files $uri @drupal-no-args;
     }
 
+{{ if getenv "NGINX_ALLOW_XML_ENDPOINTS" }}
+    location ~* ^.+\.xml {
+        try_files $uri @drupal;
+    }
+{{ else }}
     location = /rss.xml {
         try_files $uri @drupal-no-args;
     }
@@ -191,7 +196,7 @@ server {
     location ~* /sitemap.xml {
         try_files $uri @drupal;
     }
-
+{{ end }}
     location = /favicon.ico {
         expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
         try_files /favicon.ico @empty;

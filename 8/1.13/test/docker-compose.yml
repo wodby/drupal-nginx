@@ -6,6 +6,7 @@ services:
     environment:
       NGINX_BACKEND_HOST: drupal
       NGINX_SERVER_EXTRA_CONF_FILEPATH: /var/www/html/server.conf
+      NGINX_ALLOW_XML_ENDPOINTS: 1
     depends_on:
       - drupal
     volumes:
