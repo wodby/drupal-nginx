@@ -69,7 +69,19 @@ server {
         location ~* /admin/reports/hacked/.+/diff/ {
             try_files $uri @drupal;
         }
+{{ if getenv "NGINX_ALLOW_XML_ENDPOINTS" }}
+        location ~* ^.+\.xml {
+            try_files $uri @drupal;
+        }
+{{ else }}
+        location ~* /rss.xml {
+            try_files $uri @drupal-no-args;
+        }
 
+        location ~* /sitemap.xml {
+            try_files $uri @drupal;
+        }
+{{ end }}
         location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|xml|otf|ttf|eot|woff|woff2|svg|svgz)$ {
             access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
             expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
@@ -176,19 +188,7 @@ server {
         access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
         try_files $uri @drupal-no-args;
     }
-{{ if getenv "NGINX_ALLOW_XML_ENDPOINTS" }}
-    location ~* ^.+\.xml {
-        try_files $uri @drupal;
-    }
-{{ else }}
-    location = /rss.xml {
-        try_files $uri @drupal-no-args;
-    }
 
-    location ~* /sitemap.xml {
-        try_files $uri @drupal;
-    }
-{{ end }}
     location = /favicon.ico {
         expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
         try_files /favicon.ico @empty;
