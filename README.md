@@ -37,6 +37,6 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 | NGINX_XMLRPC_SERVER_NAME                      |                        | |
 | NGINX_ALLOW_XML_ENDPOINTS                     |                        | |
 
-## Using in production
+## Complete Drupal stack
 
-Deploy docker-based infrastructure for Drupal to your own server via [![Wodby](https://www.google.com/s2/favicons?domain=wodby.com) Wodby](https://wodby.com).
+To get full docker-based Drupal stack see [Docker4Drupal](https://github.com/wodby/docker4drupal).
