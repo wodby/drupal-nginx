@@ -9,15 +9,15 @@ To get full docker-based local environment for Drupal see [Docker4Drupal](http:/
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`8-1.13-2.3.0`, `8-1.13`, `latest` (*8/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.13/Dockerfile)
-- [`8-1.12-2.3.0`, `8-1.12`, (*8/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.12/Dockerfile)
-- [`8-1.10-2.3.0`, `8-1.10`, (*8/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.10/Dockerfile)
-- [`7-1.13-2.3.0`, `7-1.13`, (*7/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.13/Dockerfile)
-- [`7-1.12-2.3.0`, `7-1.12`, (*7/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.12/Dockerfile)
-- [`7-1.10-2.3.0`, `7-1.10`, (*7/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.10/Dockerfile)
-- [`6-1.13-2.3.0`, `6-1.13`, (*6/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.13/Dockerfile)
-- [`6-1.12-2.3.0`, `6-1.12`, (*6/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.12/Dockerfile)
-- [`6-1.10-2.3.0`, `6-1.10`, (*6/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.10/Dockerfile)
+- [`8-1.13-2.3.1`, `8-1.13`, `latest` (*8/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.13/Dockerfile)
+- [`8-1.12-2.3.1`, `8-1.12`, (*8/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.12/Dockerfile)
+- [`8-1.10-2.3.1`, `8-1.10`, (*8/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.10/Dockerfile)
+- [`7-1.13-2.3.1`, `7-1.13`, (*7/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.13/Dockerfile)
+- [`7-1.12-2.3.1`, `7-1.12`, (*7/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.12/Dockerfile)
+- [`7-1.10-2.3.1`, `7-1.10`, (*7/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.10/Dockerfile)
+- [`6-1.13-2.3.1`, `6-1.13`, (*6/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.13/Dockerfile)
+- [`6-1.12-2.3.1`, `6-1.12`, (*6/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.12/Dockerfile)
+- [`6-1.10-2.3.1`, `6-1.10`, (*6/1.10/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.10/Dockerfile)
 
 ## Environment variables available for customization
 

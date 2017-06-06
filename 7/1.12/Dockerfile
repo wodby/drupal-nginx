@@ -1,4 +1,4 @@
-FROM wodby/nginx:1.12
+FROM wodby/nginx:1.12-2.3.0
 
 ENV WODBY_DIR_FILES /mnt/files
 
