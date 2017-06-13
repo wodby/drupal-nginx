@@ -8,4 +8,6 @@ fi
 
 chown www-data:www-data "${WODBY_DIR_FILES}"
 
-gotpl /etc/gotpl/drupal.conf.tpl > /etc/nginx/conf.d/drupal.conf
+if [ ! -e /etc/nginx/conf.d/drupal.conf ]; then
+    gotpl /etc/gotpl/drupal.conf.tpl > /etc/nginx/conf.d/drupal.conf
+fi
