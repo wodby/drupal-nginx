@@ -1,4 +1,4 @@
-# Nginx docker container image for Drupal
+# Nginx Docker Container Image for Drupal
 
 [![Build Status](https://travis-ci.org/wodby/drupal-nginx.svg?branch=master)](https://travis-ci.org/wodby/drupal-nginx)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wodby/drupal-nginx.svg)](https://hub.docker.com/r/wodby/drupal-nginx)
@@ -7,16 +7,22 @@
 
 To get full docker-based local environment for Drupal see [Docker4Drupal](http://docker4drupal.org).
 
-## Supported tags and respective `Dockerfile` links
+## Docker Images
 
-- [`8-1.13-2.4.0`, `8-1.13`, `latest` (*8/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.13/Dockerfile)
-- [`8-1.12-2.4.0`, `8-1.12`, (*8/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/8/1.12/Dockerfile)
-- [`7-1.13-2.4.0`, `7-1.13`, (*7/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.13/Dockerfile)
-- [`7-1.12-2.4.0`, `7-1.12`, (*7/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/7/1.12/Dockerfile)
-- [`6-1.13-2.4.0`, `6-1.13`, (*6/1.13/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.13/Dockerfile)
-- [`6-1.12-2.4.0`, `6-1.12`, (*6/1.12/Dockerfile*)](https://github.com/wodby/drupal-nginx/blob/master/6/1.12/Dockerfile)
+Images are built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and published on [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx). 
 
-## Environment variables available for customization
+## Versions
+
+| Image Tag | Drupal | Nginx | Alpine |
+| --------- | ------ | ----- | ------ |
+| [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/8/1.13/Dockerfile) | 8 | 1.13 | 3.6 |  
+| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/8/1.12/Dockerfile) | 8 | 1.12 | 3.6 |  
+| [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/7/1.13/Dockerfile) | 7 | 1.13 | 3.6 |  
+| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/7/1.12/Dockerfile) | 7 | 1.12 | 3.6 |
+| [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/6/1.13/Dockerfile) | 6 | 1.13 | 3.6 |  
+| [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/6/1.12/Dockerfile) | 6 | 1.12 | 3.6 |
+
+## Environment Variables
 
 See at [wodby/nginx](https://github.com/wodby/nginx)
 
@@ -34,6 +40,6 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 | NGINX_XMLRPC_SERVER_NAME                      |                        | |
 | NGINX_ALLOW_XML_ENDPOINTS                     |                        | |
 
-## Complete Drupal stack
+## Complete Drupal Stack
 
 To get full docker-based Drupal stack see [Docker4Drupal](https://github.com/wodby/docker4drupal).
