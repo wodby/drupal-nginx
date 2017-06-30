@@ -5,8 +5,6 @@
 [![Docker Stars](https://img.shields.io/docker/stars/wodby/drupal-nginx.svg)](https://hub.docker.com/r/wodby/drupal-nginx)
 [![Wodby Slack](http://slack.wodby.com/badge.svg)](http://slack.wodby.com)
 
-To get full docker-based local environment for Drupal see [Docker4Drupal](http://docker4drupal.org).
-
 ## Docker Images
 
 Images are built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and published on [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx). 
@@ -43,4 +41,4 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 
 ## Complete Drupal Stack
 
-To get full docker-based Drupal stack see [Docker4Drupal](https://github.com/wodby/docker4drupal).
+See [Docker4Drupal](https://github.com/wodby/docker4drupal).
