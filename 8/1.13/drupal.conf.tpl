@@ -11,9 +11,11 @@ server {
     fastcgi_param QUERY_STRING $query_string;
     fastcgi_param SCRIPT_NAME $fastcgi_script_name;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+{{ if getenv "NGINX_DRUPAL_HIDE_HEADERS" }}
     fastcgi_hide_header 'X-Drupal-Cache';
     fastcgi_hide_header 'X-Generator';
-
+    fastcgi_hide_header 'X-Drupal-Dynamic-Cache';
+{{ end }}
     location / {
         location ~* /system/files/ {
             include fastcgi_params;
