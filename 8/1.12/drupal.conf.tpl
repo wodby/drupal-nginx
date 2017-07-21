@@ -218,6 +218,7 @@ server {
         report_uploads uploads;
     }
 
+    include healthz.conf;
 {{ if getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }}
     include {{ getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }};
 {{ end }}
