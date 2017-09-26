@@ -27,7 +27,6 @@ See at [wodby/nginx](https://github.com/wodby/nginx)
 | Variable                                      | Default Value          | Description |
 | --------------------------------------------- | ---------------------- | ----------- |
 | NGINX_ALLOW_XML_ENDPOINTS                     |                        |             |
-| NGINX_CLIENT_MAX_BODY_SIZE                    | 256m                   |             |
 | NGINX_DRUPAL_HIDE_HEADERS                     |                        |             |
 | NGINX_DRUPAL_TRACK_UPLOADS                    | uploads 60s            |             |
 | NGINX_SERVER_EXTRA_CONF_FILEPATH              |                        |             |
