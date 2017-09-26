@@ -1,3 +1,13 @@
+upstream php {
+    server {{ getenv "NGINX_BACKEND_HOST" }}:9000;
+}
+
+map $http_x_forwarded_proto $fastcgi_https {
+    default $https;
+    http '';
+    https on;
+}
+
 server {
     server_name {{ getenv "NGINX_SERVER_NAME" "drupal" }};
     listen 80;
@@ -8,9 +18,6 @@ server {
     include fastcgi_params;
     fastcgi_keep_conn on;
     fastcgi_index index.php;
-    fastcgi_param QUERY_STRING q=$no_slash_uri&$args;
-    fastcgi_param SCRIPT_NAME $fastcgi_script_name;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 {{ if getenv "NGINX_DRUPAL_HIDE_HEADERS" }}
     fastcgi_hide_header 'X-Drupal-Cache';
     fastcgi_hide_header 'X-Generator';
@@ -22,18 +29,12 @@ server {
             fastcgi_param QUERY_STRING q=$uri&$args;
             fastcgi_param SCRIPT_NAME /index.php;
             fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-            fastcgi_pass backend;
+            fastcgi_pass php;
             log_not_found off;
         }
 
         location ~* /sites/.*/files/private/ {
             internal;
-        }
-
-        location ~* /imagecache/ {
-            access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
-            expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
-            try_files $uri @drupal;
         }
 
         location ~* /files/styles/ {
@@ -118,51 +119,50 @@ server {
 
     location @drupal {
         include fastcgi_params;
-        fastcgi_param QUERY_STRING q=$no_slash_uri&$args;
+        fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-        fastcgi_pass backend;
+        fastcgi_pass php;
         track_uploads {{ getenv "NGINX_DRUPAL_TRACK_UPLOADS" "uploads 60s" }};
     }
 
     location @drupal-no-args {
         include fastcgi_params;
-        fastcgi_param QUERY_STRING q=$no_slash_uri;
+        fastcgi_param QUERY_STRING q=$uri;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-        fastcgi_pass backend;
-    }
-
-    location ~* ^/authorize.php {
-        include fastcgi_params;
-        fastcgi_param QUERY_STRING $args;
-        fastcgi_param SCRIPT_NAME /authorize.php;
-        fastcgi_param SCRIPT_FILENAME $document_root/authorize.php;
-        fastcgi_pass backend;
-    }
-
-    location = /cron.php {
-        fastcgi_pass backend;
+        fastcgi_pass php;
     }
 
     location = /index.php {
-        fastcgi_pass backend;
+        fastcgi_pass php;
     }
 
-    location = /install.php {
-        fastcgi_pass backend;
+    location = /core/install.php {
+        fastcgi_pass php;
+    }
+
+    location ~* ^/core/authorize.php {
+        include fastcgi_params;
+        fastcgi_param QUERY_STRING $args;
+        fastcgi_param SCRIPT_NAME /core/authorize.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/core/authorize.php;
+        fastcgi_pass php;
+    }
+
+    location = /core/modules/statistics/statistics.php {
+        fastcgi_pass php;
+    }
+
+    location = /cron {
+        fastcgi_param QUERY_STRING $args;
+        fastcgi_param SCRIPT_NAME /index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_pass php;
     }
 
     location ~* ^/update.php {
-        fastcgi_pass backend;
-    }
-
-    location = /xmlrpc.php {
-        {{ if getenv "NGINX_XMLRPC_SERVER_NAME" "" }}
-        include fastcgi_params;
-        fastcgi_param  SERVER_NAME {{ getenv "NGINX_XMLRPC_SERVER_NAME" }};
-        {{ end }}
-        fastcgi_pass backend;
+        fastcgi_pass php;
     }
 
     location ^~ /.bzr {

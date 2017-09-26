@@ -1,9 +1,10 @@
 FROM wodby/nginx:1.13
 
-ENV WODBY_DIR_FILES /mnt/files
+ENV WODBY_DIR_FILES="/mnt/files" \
+    NGINX_CLIENT_MAX_BODY_SIZE="256m"
 
 RUN rm /etc/gotpl/default-vhost.conf.tpl && \
     mkdir -p $WODBY_DIR_FILES
 
-COPY drupal.conf.tpl /etc/gotpl/
-COPY init/* /docker-entrypoint-init.d/
+COPY templates /etc/gotpl/
+COPY init /docker-entrypoint-init.d/
