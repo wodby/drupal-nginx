@@ -14,10 +14,10 @@ Images are built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and p
 | Image Tag                                                                     | Drupal | Nginx | Alpine |
 | ----------------------------------------------------------------------------- | ------ | ----- | ------ |
 | [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/8/1.13/Dockerfile) | 8      | 1.13  | 3.6    |
-| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/8/1.12/Dockerfile) | 8      | 1.12  | 3.6    |
 | [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/7/1.13/Dockerfile) | 7      | 1.13  | 3.6    |
-| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/7/1.12/Dockerfile) | 7      | 1.12  | 3.6    |
 | [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/6/1.13/Dockerfile) | 6      | 1.13  | 3.6    |
+| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/8/1.12/Dockerfile) | 8      | 1.12  | 3.6    |
+| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/7/1.12/Dockerfile) | 7      | 1.12  | 3.6    |
 | [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/6/1.12/Dockerfile) | 6      | 1.12  | 3.6    |
 
 ## Environment Variables
