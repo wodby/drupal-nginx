@@ -7,6 +7,7 @@ ENV WODBY_DIR_FILES="/mnt/files"
 USER root
 
 RUN addgroup -S -g 82 www-data && \
+    adduser -u 82 -D -S -s /bin/bash -G www-data www-data && \
     addgroup nginx www-data && \
     rm /etc/gotpl/default-vhost.conf.tpl && \
     mkdir -p $WODBY_DIR_FILES
