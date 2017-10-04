@@ -15,9 +15,8 @@ server {
     root {{ getenv "NGINX_SERVER_ROOT" "/var/www/html/" }};
     index index.php;
 
-    include fastcgi_params;
-    fastcgi_keep_conn on;
-    fastcgi_index index.php;
+    include fastcgi.conf;
+
 {{ if getenv "NGINX_DRUPAL_HIDE_HEADERS" }}
     fastcgi_hide_header 'X-Drupal-Cache';
     fastcgi_hide_header 'X-Generator';
@@ -25,7 +24,7 @@ server {
 {{ end }}
     location / {
         location ~* /system/files/ {
-            include fastcgi_params;
+            include fastcgi.conf;
             fastcgi_param QUERY_STRING q=$uri&$args;
             fastcgi_param SCRIPT_NAME /index.php;
             fastcgi_param SCRIPT_FILENAME $document_root/index.php;
@@ -118,7 +117,7 @@ server {
     }
 
     location @drupal {
-        include fastcgi_params;
+        include fastcgi.conf;
         fastcgi_param QUERY_STRING $query_string;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
@@ -127,7 +126,7 @@ server {
     }
 
     location @drupal-no-args {
-        include fastcgi_params;
+        include fastcgi.conf;
         fastcgi_param QUERY_STRING q=$uri;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
@@ -143,7 +142,7 @@ server {
     }
 
     location ~* ^/core/authorize.php {
-        include fastcgi_params;
+        include fastcgi.conf;
         fastcgi_param QUERY_STRING $args;
         fastcgi_param SCRIPT_NAME /core/authorize.php;
         fastcgi_param SCRIPT_FILENAME $document_root/core/authorize.php;

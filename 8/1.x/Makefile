@@ -1,32 +1,32 @@
 -include env_make
 
-NGINX ?= 1.13
-VERSION ?= 8-$(NGINX)
+NGINX_VER ?= 1.13
+TAG ?= 8-$(NGINX_VER)
 
 REPO = wodby/drupal-nginx
-NAME = drupal8-nginx-$(NGINX)
+NAME = drupal-8-nginx-$(NGINX_VER)
 
 .PHONY: build test push shell run start stop logs clean release
 
 default: build
 
 build:
-	docker build -t $(REPO):$(VERSION) --build-arg NGINX_VER=$(NGINX) ./
+	docker build -t $(REPO):$(TAG) --build-arg NGINX_VER=$(NGINX_VER) ./
 
 test:
-	IMAGE=$(REPO):$(VERSION) ./test.sh
+	IMAGE=$(REPO):$(TAG) ./test.sh
 
 push:
-	docker push $(REPO):$(VERSION)
+	docker push $(REPO):$(TAG)
 
 shell:
-	docker run --rm --name $(NAME) -i -t $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(VERSION) /bin/bash
+	docker run --rm --name $(NAME) -i -t $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) /bin/bash
 
 run:
-	docker run --rm --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(VERSION)
+	docker run --rm --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG)
 
 start:
-	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(VERSION)
+	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG)
 
 stop:
 	docker stop $(NAME)

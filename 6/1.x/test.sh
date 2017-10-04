@@ -14,6 +14,8 @@ docker-compose -f test/docker-compose.yml up -d
 
 nginx_exec make check-ready -f /usr/local/bin/actions.mk
 
+# TODO: check endpoints of installed Drupal
+
 echo "Checking Drupal endpoints"
 echo -n "Checking / page... "
 nginx_exec curl -I "localhost" | grep '302 Moved Temporarily'

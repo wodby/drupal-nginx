@@ -7,7 +7,7 @@
 
 ## Docker Images
 
-Images are built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and published on [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx). 
+Images are based on [wodby/php-nginx](https://github.com/wodby/php-nginx), built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and published on [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx). 
 
 ## Versions
 
@@ -22,7 +22,7 @@ Images are built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and p
 
 ## Environment Variables
 
-See at [wodby/nginx](https://github.com/wodby/nginx)
+See at [wodby/php-nginx](https://github.com/wodby/php-nginx)
 
 | Variable                                      | Default Value          | Description |
 | --------------------------------------------- | ---------------------- | ----------- |
