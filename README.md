@@ -12,9 +12,7 @@
 * [Travis CI builds](https://travis-ci.org/wodby/drupal-nginx) 
 * [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx)
 
-## Versions
-
-| Image tag (Docker file)                                                | Drupal | Nginx | 
+| Image tag (Dockerfile)                                                 | Drupal | Nginx | 
 | ---------------------------------------------------------------------- | ------ | ----- | 
 | [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.13  | 
 | [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 7      | 1.13  | 
