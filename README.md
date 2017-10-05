@@ -12,6 +12,8 @@
 * [Travis CI builds](https://travis-ci.org/wodby/drupal-nginx) 
 * [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx)
 
+For better reliability we release images with stability tags (`wodby/drupal-nginx:8-1.13-X.X.X`) which correspond to git tags. We **strongly recommend** using images only with stability tags. Below listed basic tags:
+
 | Image tag (Dockerfile)                                                 | Drupal | Nginx | 
 | ---------------------------------------------------------------------- | ------ | ----- | 
 | [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.13  | 
