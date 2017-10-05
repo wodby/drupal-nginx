@@ -14,8 +14,6 @@ services:
       - ./server.conf:/var/www/html/server.conf
   drupal:
     image: drupal:8-fpm
-    image: drupal:7-fpm
-    image: wodby/drupal6
     volumes:
       - codebase:/var/www/html
 
