@@ -7,10 +7,10 @@ if [[ -n "${DEBUG}" ]]; then
 fi
 
 nginx_exec() {
-    docker-compose -f test/docker-compose.yml exec nginx "${@}"
+    docker-compose exec nginx "${@}"
 }
 
-docker-compose -f test/docker-compose.yml up -d
+docker-compose up -d
 
 nginx_exec make check-ready -f /usr/local/bin/actions.mk
 
@@ -51,4 +51,4 @@ nginx_exec curl -I "localhost/redirect-internal-permanent" | grep '301 Moved Per
 echo -n "Checking user-defined external redirect... "
 nginx_exec curl -I "localhost/redirect-external" | grep '302 Moved Temporarily'
 
-docker-compose -f test/docker-compose.yml down
+docker-compose down

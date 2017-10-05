@@ -7,18 +7,21 @@
 
 ## Docker Images
 
-Images are based on [wodby/php-nginx](https://github.com/wodby/php-nginx), built via [Travis CI](https://travis-ci.org/wodby/drupal-nginx) and published on [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx). 
+* All images are based on Alpine Linux
+* Base image: [wodby/php-nginx](https://github.com/wodby/php-nginx)
+* [Travis CI builds](https://travis-ci.org/wodby/drupal-nginx) 
+* [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx)
 
 ## Versions
 
-| Image Tag                                                                    | Drupal | Nginx | Alpine |
-| ---------------------------------------------------------------------------- | ------ | ----- | ------ |
-| [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/8/1.x/Dockerfile) | 8      | 1.13  | 3.6    |
-| [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/7/1.x/Dockerfile) | 7      | 1.13  | 3.6    |
-| [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/6/1.x/Dockerfile) | 6      | 1.13  | 3.6    |
-| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/8/1.x/Dockerfile) | 8      | 1.12  | 3.6    |
-| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/7/1.x/Dockerfile) | 7      | 1.12  | 3.6    |
-| [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/6/1.x/Dockerfile) | 6      | 1.12  | 3.6    |
+| Image tag (Docker file)                                                | Drupal | Nginx | 
+| ---------------------------------------------------------------------- | ------ | ----- | 
+| [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.13  | 
+| [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 7      | 1.13  | 
+| [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 6      | 1.13  | 
+| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.12  | 
+| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 7      | 1.12  | 
+| [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 6      | 1.12  | 
 
 ## Environment Variables
 

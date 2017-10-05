@@ -9,13 +9,15 @@ env:
   global:
     - DOCKER_COMPOSE_VERSION=1.10.0
     - DOCKER_VERSION=17.06.2
+    - LATEST_DRUPAL_VER=8
+    - LATEST_NGINX_VER=1.13
   matrix:
-    - DRUPAL=8 LINE=1.x NGINX_VER=1.13
-    - DRUPAL=7 LINE=1.x NGINX_VER=1.13
-    - DRUPAL=6 LINE=1.x NGINX_VER=1.13
-    - DRUPAL=8 LINE=1.x NGINX_VER=1.12
-    - DRUPAL=7 LINE=1.x NGINX_VER=1.12
-    - DRUPAL=6 LINE=1.x NGINX_VER=1.12
+    - DRUPAL_VER=8 NGINX_VER=1.13
+    - DRUPAL_VER=7 NGINX_VER=1.13
+    - DRUPAL_VER=6 NGINX_VER=1.13
+    - DRUPAL_VER=8 NGINX_VER=1.12
+    - DRUPAL_VER=7 NGINX_VER=1.12
+    - DRUPAL_VER=6 NGINX_VER=1.12
 
 before_install:
   - sudo apt-get update
@@ -28,7 +30,6 @@ install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - cd ./$DRUPAL/$LINE
   - make && make test
 
 after_success: |
@@ -37,6 +38,10 @@ after_success: |
     make release
 
     if [ -n "$TRAVIS_TAG" ]; then
-      make VERSION="$DRUPAL-$NGINX_VER-$TRAVIS_TAG" release
+      make VERSION="$DRUPAL_VER-$NGINX_VER-$TRAVIS_TAG" release
+    fi
+
+    if [ "$DRUPAL_VER" == "$LATEST_DRUPAL_VER" && "$NGINX_VER" == "$LATEST_NGINX_VER" ]; then
+      make release TAG=latest
     fi
   fi

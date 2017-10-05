@@ -2,6 +2,10 @@ ARG NGINX_VER
 
 FROM wodby/php-nginx:${NGINX_VER}
 
+ARG DRUPAL_VER
+
+ENV DRUPAL_VER="${DRUPAL_VER}"
+
 USER root
 
 RUN rm /etc/gotpl/default-vhost.conf.tpl
