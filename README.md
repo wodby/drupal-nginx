@@ -14,14 +14,14 @@
 
 For better reliability we release images with stability tags (`wodby/drupal-nginx:8-1.13-X.X.X`) which correspond to git tags. We **strongly recommend** using images only with stability tags. Below listed basic tags:
 
-| Image tag (Dockerfile)                                                 | Drupal | Nginx | 
-| ---------------------------------------------------------------------- | ------ | ----- | 
-| [8-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.13  | 
-| [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 7      | 1.13  | 
-| [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 6      | 1.13  | 
-| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.12  | 
-| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 7      | 1.12  | 
-| [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 6      | 1.12  | 
+| Image tag (Dockerfile)                                                          | Drupal | Nginx |
+| ------------------------------------------------------------------------------- | ------ | ----- |
+| [8-1.13 (latest)](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.13  |
+| [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 7      | 1.13  |
+| [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 6      | 1.13  |
+| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 8      | 1.12  |
+| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 7      | 1.12  |
+| [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 6      | 1.12  |
 
 ## Environment Variables
 
