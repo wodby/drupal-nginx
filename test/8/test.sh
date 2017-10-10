@@ -26,7 +26,7 @@ nginx_exec curl -I "localhost/core/install.php" | grep '200 OK'
 echo -n "statistics.php...  "
 nginx_exec curl -I "localhost/core/modules/statistics/statistics.php" | grep '500 Service unavailable'
 echo -n "cron...            "
-nginx_exec curl -I "localhost/cron" | grep '200 OK'
+nginx_exec curl -I "localhost/cron" | grep '302 Found'
 echo -n "index.php...       "
 nginx_exec curl -I "localhost/index.php" | grep '302 Found'
 echo -n "update.php...      "
