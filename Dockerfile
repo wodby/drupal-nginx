@@ -1,6 +1,6 @@
-ARG NGINX_VER
+ARG FROM_TAG
 
-FROM wodby/php-nginx:${NGINX_VER}
+FROM wodby/php-nginx:${FROM_TAG}
 
 ARG DRUPAL_VER
 
