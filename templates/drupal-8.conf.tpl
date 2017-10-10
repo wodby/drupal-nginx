@@ -154,6 +154,7 @@ server {
     }
 
     location = /cron {
+        include fastcgi.conf;
         fastcgi_param QUERY_STRING $args;
         fastcgi_param SCRIPT_NAME /index.php;
         fastcgi_param SCRIPT_FILENAME $document_root/index.php;
@@ -161,6 +162,7 @@ server {
     }
 
     location ~* ^/update.php {
+        fastcgi_split_path_info ^(.+?\.php)(|/.*)$;
         fastcgi_pass php;
     }
 
