@@ -1,4 +1,4 @@
-language: python
+language: bash
 
 sudo: required
 
@@ -38,9 +38,7 @@ after_success: |
 
     if [[ -n "${TRAVIS_TAG}" ]]; then
       make release TAG="${DRUPAL_VER}-${NGINX_VER}-${TRAVIS_TAG}"
-    fi
-
-    if [[ "${DRUPAL_VER}" == "${LATEST_DRUPAL_VER}" && "${NGINX_VER}" == "${LATEST_NGINX_VER}" ]]; then
+    elif [[ "${DRUPAL_VER}" == "${LATEST_DRUPAL_VER}" && "${NGINX_VER}" == "${LATEST_NGINX_VER}" ]]; then
       make release TAG="latest"
     fi
   fi
