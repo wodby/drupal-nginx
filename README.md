@@ -30,6 +30,7 @@ See at [wodby/php-nginx](https://github.com/wodby/php-nginx)
 | Variable                                      | Default Value          | Description |
 | --------------------------------------------- | ---------------------- | ----------- |
 | NGINX_ALLOW_XML_ENDPOINTS                     |                        |             |
+| NGINX_BACKEND_HOST                            |                        |             |
 | NGINX_DRUPAL_HIDE_HEADERS                     |                        |             |
 | NGINX_DRUPAL_TRACK_UPLOADS                    | uploads 60s            |             |
 | NGINX_SERVER_EXTRA_CONF_FILEPATH              |                        |             |
