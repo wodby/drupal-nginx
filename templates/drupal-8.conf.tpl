@@ -162,7 +162,10 @@ server {
     }
 
     location ~* ^/update.php {
-        fastcgi_split_path_info ^(.+?\.php)(|/.*)$;
+        include fastcgi.conf;
+        fastcgi_param QUERY_STRING $args;
+        fastcgi_param SCRIPT_NAME /update.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/update.php;
         fastcgi_pass php;
     }
 
