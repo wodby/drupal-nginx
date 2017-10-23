@@ -32,7 +32,7 @@ server {
             log_not_found off;
         }
 
-        location ~* /sites/.*/files/private/ {
+        location ~* /sites/.+/files/private/ {
             internal;
         }
 
@@ -48,7 +48,7 @@ server {
             try_files $uri @drupal;
         }
 
-        location ~* /sites/.*/files/.*\.txt {
+        location ~* /sites/.+/files/.+\.txt {
             access_log {{ getenv "NGINX_STATIC_CONTENT_ACCESS_LOG" "off" }};
             expires {{ getenv "NGINX_STATIC_CONTENT_EXPIRES" "30d" }};
             tcp_nodelay off;
@@ -58,7 +58,7 @@ server {
             open_file_cache_errors off;
         }
 
-        location ~* /sites/.*/files/advagg_css/ {
+        location ~* /sites/.+/files/advagg_css/ {
             expires max;
             add_header ETag '';
             add_header Last-Modified 'Wed, 20 Jan 1988 04:20:42 GMT';
@@ -69,7 +69,7 @@ server {
             }
         }
 
-        location ~* /sites/.*/files/advagg_js/ {
+        location ~* /sites/.+/files/advagg_js/ {
             expires max;
             add_header ETag '';
             add_header Last-Modified 'Wed, 20 Jan 1988 04:20:42 GMT';
@@ -119,6 +119,7 @@ server {
         location ~* ^(?:.+\.(?:htaccess|make|txt|engine|inc|info|install|module|profile|po|pot|sh|.*sql|test|theme|tpl(?:\.php)?|xtmpl)|code-style\.pl|/Entries.*|/Repository|/Root|/Tag|/Template)$ {
             return 404;
         }
+
         try_files $uri @drupal;
     }
 
@@ -230,6 +231,16 @@ server {
         upload_progress_json_output;
         report_uploads uploads;
     }
+
+{{ if getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}
+    location ^~ /sites/.+/files {
+        try_files $uri @file_proxy;
+    }
+
+    location @file_proxy {
+        rewrite ^ {{ getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}$request_uri? permanent;
+    }
+{{ end }}
 
     include healthz.conf;
 {{ if getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }}
