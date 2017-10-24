@@ -22,7 +22,13 @@ server {
     fastcgi_hide_header 'X-Generator';
     fastcgi_hide_header 'X-Drupal-Dynamic-Cache';
 {{ end }}
+
     location / {
+{{ if getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}
+        location ~* /sites/.+/files {
+            try_files $uri @file_proxy;
+        }
+{{ end }}
         location ~* /system/files/ {
             include fastcgi.conf;
             fastcgi_param QUERY_STRING q=$uri&$args;
@@ -116,6 +122,12 @@ server {
 
         try_files $uri @drupal;
     }
+
+{{ if getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}
+    location @file_proxy {
+        rewrite ^ {{ getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}$request_uri? permanent;
+    }
+{{ end }}
 
     location @drupal {
         include fastcgi.conf;
@@ -229,16 +241,6 @@ server {
         upload_progress_json_output;
         report_uploads uploads;
     }
-
-{{ if getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}
-    location ^~ /sites/.+/files {
-        try_files $uri @file_proxy;
-    }
-
-    location @file_proxy {
-        rewrite ^ {{ getenv "NGINX_DRUPAL_FILE_PROXY_URL" }}$request_uri? permanent;
-    }
-{{ end }}
 
     include healthz.conf;
 {{ if getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }}
