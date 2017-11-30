@@ -12,16 +12,18 @@
 * [Travis CI builds](https://travis-ci.org/wodby/drupal-nginx) 
 * [Docker Hub](https://hub.docker.com/r/wodby/drupal-nginx)
 
-For better reliability we release images with stability tags (`wodby/drupal-nginx:8-1.13-X.X.X`) which correspond to git tags. We **strongly recommend** using images only with stability tags. Below listed basic tags:
+[_(Dockerfile)_]: https://github.com/wodby/drupal-nginx/tree/master/Dockerfile 
 
-| Image tag (Dockerfile)                                                          | Drupal | Nginx |
-| ------------------------------------------------------------------------------- | ------ | ----- |
-| [8-1.13 (latest)](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile) | 8      | 1.13  |
-| [7-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 7      | 1.13  |
-| [6-1.13](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 6      | 1.13  |
-| [8-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 8      | 1.12  |
-| [7-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 7      | 1.12  |
-| [6-1.12](https://github.com/wodby/drupal-nginx/tree/master/Dockerfile)          | 6      | 1.12  |
+| Supported tags and respective `Dockerfile` links | Drupal | Nginx |
+| ------------------------------------------------ | ------ | ----- |
+| `8-1.13`, `latest` [_(Dockerfile)_]              | 8      | 1.13  |
+| `7-1.13` [_(Dockerfile)_]                        | 7      | 1.13  |
+| `6-1.13` [_(Dockerfile)_]                        | 6      | 1.13  |
+| `8-1.12` [_(Dockerfile)_]                        | 8      | 1.12  |
+| `7-1.12` [_(Dockerfile)_]                        | 7      | 1.12  |
+| `6-1.12` [_(Dockerfile)_]                        | 6      | 1.12  |
+
+For better reliability we additionally release images with stability tags (`wodby/drupal-nginx:8-1.13-X.X.X`) which correspond to [git tags](https://github.com/wodby/drupal-nginx/releases). We **strongly recommend** using images only with stability tags. 
 
 ## Environment Variables
 
