@@ -4,18 +4,18 @@ DRUPAL_VER ?= 8
 NGINX_VER ?= 1.13
 TAG ?= $(DRUPAL_VER)-$(NGINX_VER)
 
-FROM_TAG = $(NGINX_VER)
+BASE_IMAGE_TAG = $(NGINX_VER)
 REPO = wodby/drupal-nginx
 NAME = drupal-$(DRUPAL_VER)-nginx-$(NGINX_VER)
 
-ifneq ($(FROM_STABILITY_TAG),)
-    FROM_TAG := $(FROM_TAG)-$(FROM_STABILITY_TAG)
+ifneq ($(BASE_IMAGE_STABILITY_TAG),)
+    BASE_IMAGE_TAG := $(BASE_IMAGE_TAG)-$(BASE_IMAGE_STABILITY_TAG)
 endif
 
 ifneq ($(STABILITY_TAG),)
-ifneq ($(TAG),latest)
-    override TAG := $(TAG)-$(STABILITY_TAG)
-endif
+    ifneq ($(TAG),latest)
+        override TAG := $(TAG)-$(STABILITY_TAG)
+    endif
 endif
 
 .PHONY: build test push shell run start stop logs clean release
@@ -23,7 +23,10 @@ endif
 default: build
 
 build:
-	docker build -t $(REPO):$(TAG) --build-arg FROM_TAG=$(FROM_TAG) --build-arg DRUPAL_VER=$(DRUPAL_VER) ./
+	docker build -t $(REPO):$(TAG) \
+		--build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) \
+		--build-arg DRUPAL_VER=$(DRUPAL_VER) \
+		./
 
 test:
 	cd test/$(DRUPAL_VER) && IMAGE=$(REPO):$(TAG) ./test.sh

@@ -1,6 +1,6 @@
-ARG FROM_TAG
+ARG BASE_IMAGE_TAG
 
-FROM wodby/php-nginx:${FROM_TAG}
+FROM wodby/php-nginx:${BASE_IMAGE_TAG}
 
 ARG DRUPAL_VER
 

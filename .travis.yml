@@ -1,16 +1,12 @@
 language: bash
 
-sudo: required
-
 services:
   - docker
 
 env:
   global:
-    - DOCKER_COMPOSE_VERSION=1.10.0
-    - DOCKER_VERSION=17.06.2
     - LATEST_TAG=8-1.13
-    - FROM_STABILITY_TAG=""
+    - BASE_IMAGE_STABILITY_TAG=
   matrix:
     - DRUPAL_VER=8 NGINX_VER=1.13 TAG=8-1.13
     - DRUPAL_VER=7 NGINX_VER=1.13 TAG=7-1.13
@@ -18,14 +14,6 @@ env:
     - DRUPAL_VER=8 NGINX_VER=1.12 TAG=8-1.12
     - DRUPAL_VER=7 NGINX_VER=1.12 TAG=7-1.12
     - DRUPAL_VER=6 NGINX_VER=1.12 TAG=6-1.12
-
-install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce="${DOCKER_VERSION}~ce-0~ubuntu"
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
 
 script:
   - make && make test
@@ -48,4 +36,5 @@ after_success: |
 notifications:
   on_failure: never
   slack:
-    secure: "tQpU1yNSEUYvr3ErkmA+mUUiNLio880vKzd06l71C+hrUJ+WuOY5anmZBbmIsnjBFU6fVRXW8qlwmOZFhvpRjLxo6DTERHSrBn7Zip+Q2fjgZ1xcczti+nakhRmtwWJCJHQzqz0/C7BgBSUbYWxOkcvfRL+15M5AIECmnUZGKtUJLdtfODW1ABPi6E1rd+PdSQktzcBVZHHOxCgG3dnh3uaLl0gr1OgjTqzakNSMIETdsj15Q1UHrkld22wbs9HgPHNlrx/2goU5/zkTFAFac5ACm3fSJebper/dwIa7wF+wqpKKZc5Vw4L4T77N/uk8k9qAUOdiFJwnSpsfGuYteWleOkSzXTv3ZFDDHtNlZmBzljmw+UAOXieVielwYpSHRQv0Atvx8WioMnR8TNK3TlYQbI5dQEGZU16/BVL8ZTaQF5AZN8Wm4UcnfCtOErv83f1pfqAnThCFESXVvCWv+vkcGgqKx4yIsRePH1/RX2lIYAU0SLbrJdFxIFO6WtkeGU0+AVTAsuhgsy7CzAI4JuhTUJDmYFFKj+g/bKIwipuayth+TzlQVg/iIlo4TkkGmAEi26MWq+dssHNcE2iR7MAVyjtA7GnQNDCrPMBpNn+RWVILYsS7O2830kJNwPs8tc6deG0lMdY3Br4euTvJaeyg0m9+cpsvegAx+E/W3Fw="
+    secure: |
+      tQpU1yNSEUYvr3ErkmA+mUUiNLio880vKzd06l71C+hrUJ+WuOY5anmZBbmIsnjBFU6fVRXW8qlwmOZFhvpRjLxo6DTERHSrBn7Zip+Q2fjgZ1xcczti+nakhRmtwWJCJHQzqz0/C7BgBSUbYWxOkcvfRL+15M5AIECmnUZGKtUJLdtfODW1ABPi6E1rd+PdSQktzcBVZHHOxCgG3dnh3uaLl0gr1OgjTqzakNSMIETdsj15Q1UHrkld22wbs9HgPHNlrx/2goU5/zkTFAFac5ACm3fSJebper/dwIa7wF+wqpKKZc5Vw4L4T77N/uk8k9qAUOdiFJwnSpsfGuYteWleOkSzXTv3ZFDDHtNlZmBzljmw+UAOXieVielwYpSHRQv0Atvx8WioMnR8TNK3TlYQbI5dQEGZU16/BVL8ZTaQF5AZN8Wm4UcnfCtOErv83f1pfqAnThCFESXVvCWv+vkcGgqKx4yIsRePH1/RX2lIYAU0SLbrJdFxIFO6WtkeGU0+AVTAsuhgsy7CzAI4JuhTUJDmYFFKj+g/bKIwipuayth+TzlQVg/iIlo4TkkGmAEi26MWq+dssHNcE2iR7MAVyjtA7GnQNDCrPMBpNn+RWVILYsS7O2830kJNwPs8tc6deG0lMdY3Br4euTvJaeyg0m9+cpsvegAx+E/W3Fw=
