@@ -7,4 +7,3 @@ ARG DRUPAL_VER
 ENV DRUPAL_VER="${DRUPAL_VER}"
 
 COPY templates/d${DRUPAL_VER}-vhost.conf.tpl /etc/gotpl/vhost.conf.tpl
-COPY init /docker-entrypoint-init.d/
