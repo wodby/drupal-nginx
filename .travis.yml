@@ -6,7 +6,6 @@ services:
 env:
   global:
     - LATEST_TAG=8-1.13
-    - BASE_IMAGE_STABILITY_TAG=
   matrix:
     - DRUPAL_VER=8 NGINX_VER=1.13 TAG=8-1.13
     - DRUPAL_VER=7 NGINX_VER=1.13 TAG=7-1.13
@@ -15,10 +14,10 @@ env:
     - DRUPAL_VER=7 NGINX_VER=1.12 TAG=7-1.12
     - DRUPAL_VER=6 NGINX_VER=1.12 TAG=6-1.12
 
-script:
-  - make && make test
+script: |
+  make
+  make test
 
-after_success: |
   if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ("${TRAVIS_BRANCH}" == "master"  || -n "${TRAVIS_TAG}") ]]; then
     docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
@@ -27,6 +26,10 @@ after_success: |
     fi
 
     make release
+
+    if [[ -n "${EXTRA_TAG}" ]]; then
+      make release TAG="${EXTRA_TAG}"
+    fi
 
     if [[ "${TAG}" == "${LATEST_TAG}" ]]; then
       make release TAG="latest"
