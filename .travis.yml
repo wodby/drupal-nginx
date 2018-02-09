@@ -14,27 +14,28 @@ env:
     - DRUPAL_VER=7 NGINX_VER=1.12 TAG=7-1.12
     - DRUPAL_VER=6 NGINX_VER=1.12 TAG=6-1.12
 
-script: |
-  make
-  make test
+script:
+  - |
+    make
+    make test
 
-  if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ("${TRAVIS_BRANCH}" == "master"  || -n "${TRAVIS_TAG}") ]]; then
-    docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+    if [[ "${TRAVIS_PULL_REQUEST}" == "false" && ("${TRAVIS_BRANCH}" == "master"  || -n "${TRAVIS_TAG}") ]]; then
+      docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
-    if [[ -n "${TRAVIS_TAG}" ]]; then
-      export STABILITY_TAG="${TRAVIS_TAG}"
+      if [[ -n "${TRAVIS_TAG}" ]]; then
+        export STABILITY_TAG="${TRAVIS_TAG}"
+      fi
+
+      make release
+
+      if [[ -n "${EXTRA_TAG}" ]]; then
+        make release TAG="${EXTRA_TAG}"
+      fi
+
+      if [[ "${TAG}" == "${LATEST_TAG}" ]]; then
+        make release TAG="latest"
+      fi
     fi
-
-    make release
-
-    if [[ -n "${EXTRA_TAG}" ]]; then
-      make release TAG="${EXTRA_TAG}"
-    fi
-
-    if [[ "${TAG}" == "${LATEST_TAG}" ]]; then
-      make release TAG="latest"
-    fi
-  fi
 
 notifications:
   on_failure: never
