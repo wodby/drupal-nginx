@@ -10,7 +10,7 @@ USER root
 
 RUN rm /etc/gotpl/default-vhost.conf.tpl
 
-USER wodby
+USER nginx
 
 COPY templates /etc/gotpl/
 COPY init /docker-entrypoint-init.d/
