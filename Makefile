@@ -29,7 +29,7 @@ build:
 		./
 
 test:
-	cd test/$(DRUPAL_VER) && IMAGE=$(REPO):$(TAG) ./test.sh
+	cd test/$(DRUPAL_VER) && IMAGE=$(REPO):$(TAG) ./test
 
 push:
 	docker push $(REPO):$(TAG)
