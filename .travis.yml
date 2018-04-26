@@ -5,18 +5,17 @@ services:
 
 env:
   global:
-    - LATEST_TAG=8-1.13
-    - BASE_IMAGE_STABILITY_TAG=4.0.3
+    - LATEST_TAG=8-1.14
   matrix:
+    - DRUPAL_VER=8 NGINX_VER=1.14 TAG=8-1.14 EXTRA_TAG=8
+    - DRUPAL_VER=7 NGINX_VER=1.14 TAG=7-1.14 EXTRA_TAG=7
+    - DRUPAL_VER=6 NGINX_VER=1.14 TAG=6-1.14 EXTRA_TAG=6
     - DRUPAL_VER=8 NGINX_VER=1.13 TAG=8-1.13
     - DRUPAL_VER=7 NGINX_VER=1.13 TAG=7-1.13
     - DRUPAL_VER=6 NGINX_VER=1.13 TAG=6-1.13
-    - DRUPAL_VER=8 NGINX_VER=1.12 TAG=8-1.12
-    - DRUPAL_VER=7 NGINX_VER=1.12 TAG=7-1.12
-    - DRUPAL_VER=6 NGINX_VER=1.12 TAG=6-1.12
 
 script:
   - make && make test
 
 after_success:
-  - bash "${TRAVIS_BUILD_DIR}/travis_release"
+  - . "${TRAVIS_BUILD_DIR}/release.sh"

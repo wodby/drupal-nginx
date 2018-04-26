@@ -1,7 +1,7 @@
 -include env_make
 
 DRUPAL_VER ?= 8
-NGINX_VER ?= 1.13
+NGINX_VER ?= 1.14
 TAG ?= $(DRUPAL_VER)-$(NGINX_VER)
 
 BASE_IMAGE_TAG = $(NGINX_VER)
@@ -29,7 +29,7 @@ build:
 		./
 
 test:
-	cd test/$(DRUPAL_VER) && IMAGE=$(REPO):$(TAG) ./test
+	cd test/$(DRUPAL_VER) && IMAGE=$(REPO):$(TAG) ./test.sh
 
 push:
 	docker push $(REPO):$(TAG)
