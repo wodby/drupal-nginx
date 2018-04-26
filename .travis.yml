@@ -18,4 +18,4 @@ script:
   - make && make test
 
 after_success:
-  - bash "${TRAVIS_BUILD_DIR}/travis_release"
+  - . "${TRAVIS_BUILD_DIR}/release.sh"
