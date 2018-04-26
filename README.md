@@ -20,12 +20,12 @@ Overview:
 
 | Supported tags and respective `Dockerfile` links | Drupal | Nginx |
 | ------------------------------------------------ | ------ | ----- |
-| `8-1.13`, `latest` [_(Dockerfile)_]              | 8      | 1.13  |
+| `8-1.14`, `8`, `latest` [_(Dockerfile)_]         | 8      | 1.14  |
+| `7-1.14`, `7` [_(Dockerfile)_]                   | 7      | 1.14  |
+| `6-1.14`, `6` [_(Dockerfile)_]                   | 6      | 1.14  |
+| `8-1.13` [_(Dockerfile)_]                        | 8      | 1.13  |
 | `7-1.13` [_(Dockerfile)_]                        | 7      | 1.13  |
 | `6-1.13` [_(Dockerfile)_]                        | 6      | 1.13  |
-| `8-1.12` [_(Dockerfile)_]                        | 8      | 1.12  |
-| `7-1.12` [_(Dockerfile)_]                        | 7      | 1.12  |
-| `6-1.12` [_(Dockerfile)_]                        | 6      | 1.12  |
 
 ## Environment Variables
 
