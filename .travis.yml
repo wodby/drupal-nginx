@@ -6,6 +6,7 @@ services:
 env:
   global:
     - LATEST_TAG=8-1.14
+    - BASE_IMAGE_STABILITY_TAG=4.1.0
   matrix:
     - DRUPAL_VER=8 NGINX_VER=1.14 TAG=8-1.14 EXTRA_TAG=8
     - DRUPAL_VER=7 NGINX_VER=1.14 TAG=7-1.14 EXTRA_TAG=7
