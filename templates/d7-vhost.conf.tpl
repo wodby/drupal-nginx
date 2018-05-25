@@ -154,6 +154,10 @@ server {
         fastcgi_pass php;
     }
 
+    location = /modules/statistics/statistics.php {
+        fastcgi_pass php;
+    }
+    
     location = /cron.php {
         fastcgi_pass php;
     }
