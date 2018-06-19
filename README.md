@@ -7,7 +7,7 @@
 
 ## Docker Images
 
-!!! For better reliability we release images with stability tags (`wodby/drupal-nginx:1.13-X.X.X`) which correspond to [git tags](https://github.com/wodby/drupal-nginx/releases). We **STRONGLY RECOMMEND** using images only with stability tags. 
+❗For better reliability we release images with stability tags (`wodby/drupal-nginx:1.15-X.X.X`) which correspond to [git tags](https://github.com/wodby/drupal-nginx/releases). We strongly recommend using images only with stability tags. 
 
 Overview:
 
@@ -20,10 +20,13 @@ Overview:
 
 | Supported tags and respective `Dockerfile` links | Drupal | Nginx |
 | ------------------------------------------------ | ------ | ----- |
-| `8-1.14`, `8`, `latest` [_(Dockerfile)_]         | 8      | 1.14  |
-| `7-1.14`, `7` [_(Dockerfile)_]                   | 7      | 1.14  |
-| `6-1.14`, `6` [_(Dockerfile)_]                   | 6      | 1.14  |
-| `8-1.13` [_(Dockerfile)_]                        | 8      | 1.13  |
+| `8-1.15`, `1.15`, `8`, `latest` [_(Dockerfile)_] | 8      | 1.15  |
+| `7-1.15`, `7` [_(Dockerfile)_]                   | 7      | 1.15  |
+| `6-1.15`, `6` [_(Dockerfile)_]                   | 6      | 1.15  |
+| `8-1.14`, `1.14` [_(Dockerfile)_]                | 8      | 1.14  |
+| `7-1.14` [_(Dockerfile)_]                        | 7      | 1.14  |
+| `6-1.14` [_(Dockerfile)_]                        | 6      | 1.14  |
+| `8-1.13`, `1.12` [_(Dockerfile)_]                | 8      | 1.13  |
 | `7-1.13` [_(Dockerfile)_]                        | 7      | 1.13  |
 | `6-1.13` [_(Dockerfile)_]                        | 6      | 1.13  |
 
