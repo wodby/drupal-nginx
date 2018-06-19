@@ -243,6 +243,8 @@ server {
     }
 
     include healthz.conf;
+    include pagespeed.conf;
+
 {{ if getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }}
     include {{ getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }};
 {{ end }}
