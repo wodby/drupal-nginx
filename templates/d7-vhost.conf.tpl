@@ -154,6 +154,10 @@ server {
         fastcgi_pass php;
     }
 
+    location = /modules/statistics/statistics.php {
+        fastcgi_pass php;
+    }
+    
     location = /cron.php {
         fastcgi_pass php;
     }
@@ -239,6 +243,8 @@ server {
     }
 
     include healthz.conf;
+    include pagespeed.conf;
+
 {{ if getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }}
     include {{ getenv "NGINX_SERVER_EXTRA_CONF_FILEPATH" }};
 {{ end }}
