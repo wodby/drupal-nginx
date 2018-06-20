@@ -4,6 +4,8 @@ services:
   - docker
 
 env:
+  global:
+    - BASE_IMAGE_STABILITY_TAG=4.2.0
   matrix:
     - DRUPAL_VER=8 NGINX_VER=1.15 TAGS=8-1.15,1.15,8,latest
     - DRUPAL_VER=7 NGINX_VER=1.15 TAGS=7-1.15,7
